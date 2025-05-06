@@ -181,7 +181,6 @@ async function fetchWeatherData(location) {
         
         const data = await response.json();
         displayWeatherData(data);
-        suggestTasks(data);
     } catch (error) {
         weatherInfo.innerHTML = `<p class="error">Error: ${error.message}</p>`;
         suggestedTasks.innerHTML = '<p>Unable to suggest tasks due to weather data error</p>';
@@ -207,6 +206,9 @@ function displayWeatherData(data) {
     `;
     
     weatherSummary.textContent = `${tempC}°C / ${tempF}°F, ${description}`;
+    
+    // Suggest tasks immediately after displaying weather
+    suggestTasks(data);
 }
 
 // Suggest tasks based on weather
