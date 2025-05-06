@@ -1,0 +1,284 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    background-color: #f0f7f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    border-radius: 10px;
+    color: white;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.weather-summary {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.weather-card, .todo-section, .settings-section {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+}
+
+h3 {
+    color: #2c3e50;
+    margin: 15px 0;
+    font-size: 1.2rem;
+}
+
+#weather-info {
+    font-size: 1.1rem;
+}
+
+.task-list {
+    margin-top: 20px;
+}
+
+#tasks {
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border-left: 4px solid #4CAF50;
+}
+
+.task-item.completed {
+    border-left-color: #999;
+    opacity: 0.7;
+}
+
+.task-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.task-item .delete-task {
+    margin-left: auto;
+    color: #dc3545;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.suggested-task {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4CAF50;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: 600;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .weather-card, .todo-section, .settings-section {
+        padding: 15px;
+    }
+}
+
+.location-prompt {
+    text-align: center;
+    padding: 20px;
+}
+
+.location-prompt p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.prompt-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.prompt-form input {
+    padding: 12px;
+    font-size: 1.1rem;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+.prompt-form input:focus {
+    outline: none;
+    border-color: #45a049;
+}
+
+.prompt-form button {
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.prompt-form button:hover {
+    background-color: #45a049;
+}
+
+.forecast-section {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.forecast-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.forecast-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.forecast-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.forecast-card {
+    flex: 0 0 250px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.forecast-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.forecast-date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.forecast-weather {
+    margin-bottom: 15px;
+}
+
+.forecast-weather p {
+    margin: 5px 0;
+}
+
+.forecast-tasks {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.forecast-tasks h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.forecast-task-item {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.forecast-task-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+} 

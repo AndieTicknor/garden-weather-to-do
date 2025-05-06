@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Weather To-Do</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Garden To-Do">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Garden Weather To-Do</h1>
+            <div id="weather-summary" class="weather-summary">
+                Loading weather...
+            </div>
+        </header>
+
+        <main>
+            <section class="weather-card">
+                <h2>Current Weather</h2>
+                <div id="weather-info">
+                    <p>Loading weather data...</p>
+                </div>
+            </section>
+
+            <section class="forecast-section">
+                <h2>3-Day Forecast</h2>
+                <div class="forecast-container">
+                    <div id="forecast-scroll" class="forecast-scroll">
+                        <!-- Forecast cards will be added here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="todo-section">
+                <h2>Today's Garden Tasks</h2>
+                <div id="suggested-tasks">
+                    <p>Loading suggested tasks...</p>
+                </div>
+                
+                <div class="custom-tasks">
+                    <h3>Add Custom Task</h3>
+                    <form id="task-form">
+                        <input type="text" id="task-input" placeholder="Enter a new task">
+                        <button type="submit">Add Task</button>
+                    </form>
+                </div>
+
+                <div class="task-list">
+                    <h3>Your Tasks</h3>
+                    <ul id="tasks">
+                        <!-- Tasks will be added here -->
+                    </ul>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>Settings</h2>
+                <form id="location-form">
+                    <label for="location">Your Garden Location:</label>
+                    <input type="text" id="location" placeholder="Enter your location">
+                    <button type="submit">Save Location</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script src="service-worker.js"></script>
+</body>
+</html> 
