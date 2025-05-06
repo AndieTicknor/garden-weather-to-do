@@ -63,7 +63,7 @@ function init() {
 function showLocationPrompt() {
     weatherInfo.innerHTML = `
         <div class="location-prompt">
-            <p>Please enter your location to get weather-based garden tasks.</p>
+            <p>Please enter your ZIP Code to get weather-based garden tasks.</p>
             <form id="prompt-location-form" class="prompt-form">
                 <input type="text" id="prompt-location" placeholder="Enter your location" required>
                 <button type="submit">Get Weather</button>
