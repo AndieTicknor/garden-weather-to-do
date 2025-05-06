@@ -298,9 +298,23 @@ function displayForecast(data) {
         if (!acc[dateKey]) {
             acc[dateKey] = {
                 date: forecastDate,
-                forecasts: []
+                forecasts: [],
+                tempSum: 0,
+                humiditySum: 0,
+                windSum: 0,
+                weatherCounts: {}
             };
         }
+        
+        // Add to running sums for averages
+        acc[dateKey].tempSum += forecast.main.temp;
+        acc[dateKey].humiditySum += forecast.main.humidity;
+        acc[dateKey].windSum += forecast.wind.speed;
+        
+        // Count weather conditions
+        const weatherMain = forecast.weather[0].main;
+        acc[dateKey].weatherCounts[weatherMain] = (acc[dateKey].weatherCounts[weatherMain] || 0) + 1;
+        
         acc[dateKey].forecasts.push(forecast);
         return acc;
     }, {});
@@ -311,27 +325,39 @@ function displayForecast(data) {
         .slice(0, 3); // Get next 3 days
     
     forecastScroll.innerHTML = dailyForecasts.map(day => {
-        // Get the forecast for noon (or closest available time)
-        const noonForecast = day.forecasts.reduce((closest, current) => {
-            const currentHour = new Date(current.dt * 1000).getHours();
-            const closestHour = new Date(closest.dt * 1000).getHours();
-            return Math.abs(currentHour - 12) < Math.abs(closestHour - 12) ? current : closest;
-        });
+        // Calculate daily averages
+        const forecastCount = day.forecasts.length;
+        const avgTemp = Math.round(day.tempSum / forecastCount);
+        const avgHumidity = Math.round(day.humiditySum / forecastCount);
+        const avgWindSpeed = Math.round(day.windSum / forecastCount);
         
-        const tempC = Math.round(noonForecast.main.temp);
-        const tempF = celsiusToFahrenheit(noonForecast.main.temp);
-        const windSpeedMps = noonForecast.wind.speed;
-        const windSpeedMph = metersPerSecondToMph(windSpeedMps);
-        const tasks = suggestTasksForForecast(noonForecast);
+        // Get most common weather condition
+        const mostCommonWeather = Object.entries(day.weatherCounts)
+            .sort((a, b) => b[1] - a[1])[0][0];
+        
+        // Get weather description from the most common condition
+        const weatherDescription = day.forecasts.find(f => f.weather[0].main === mostCommonWeather)
+            .weather[0].description;
+        
+        const tempF = celsiusToFahrenheit(avgTemp);
+        const windSpeedMph = metersPerSecondToMph(avgWindSpeed);
+        const tasks = suggestTasksForForecast({
+            main: {
+                temp: avgTemp,
+                humidity: avgHumidity
+            },
+            weather: [{ main: mostCommonWeather, description: weatherDescription }],
+            wind: { speed: avgWindSpeed }
+        });
         
         return `
             <div class="forecast-card">
                 <h3>${day.date.toLocaleDateString('en-US', { weekday: 'long' })}</h3>
                 <div class="forecast-date">${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
                 <div class="forecast-weather">
-                    <p><strong>Temperature:</strong> ${tempC}°C / ${tempF}°F</p>
-                    <p><strong>Conditions:</strong> ${noonForecast.weather[0].description}</p>
-                    <p><strong>Humidity:</strong> ${noonForecast.main.humidity}%</p>
+                    <p><strong>Temperature:</strong> ${avgTemp}°C / ${tempF}°F</p>
+                    <p><strong>Conditions:</strong> ${weatherDescription}</p>
+                    <p><strong>Humidity:</strong> ${avgHumidity}%</p>
                     <p><strong>Wind:</strong> ${windSpeedMph} mph</p>
                 </div>
                 <div class="forecast-tasks">
