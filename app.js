@@ -2,6 +2,16 @@
 const WEATHER_API_KEY = 'd1d0d0acd0fb8e8e26678128ee7a9a28';
 const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5';
 
+// Helper function to convert Celsius to Fahrenheit
+function celsiusToFahrenheit(celsius) {
+    return Math.round((celsius * 9/5) + 32);
+}
+
+// Helper function to convert m/s to mph
+function metersPerSecondToMph(mps) {
+    return Math.round(mps * 2.237);
+}
+
 // Register Service Worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -180,21 +190,23 @@ async function fetchWeatherData(location) {
 
 // Display weather data
 function displayWeatherData(data) {
-    const temp = Math.round(data.main.temp);
+    const tempC = Math.round(data.main.temp);
+    const tempF = celsiusToFahrenheit(data.main.temp);
     const description = data.weather[0].description;
     const humidity = data.main.humidity;
-    const windSpeed = data.wind.speed;
+    const windSpeedMps = data.wind.speed;
+    const windSpeedMph = metersPerSecondToMph(windSpeedMps);
     
     weatherInfo.innerHTML = `
         <div class="weather-details">
-            <p><strong>Temperature:</strong> ${temp}°C</p>
+            <p><strong>Temperature:</strong> ${tempC}°C / ${tempF}°F</p>
             <p><strong>Conditions:</strong> ${description}</p>
             <p><strong>Humidity:</strong> ${humidity}%</p>
-            <p><strong>Wind Speed:</strong> ${windSpeed} m/s</p>
+            <p><strong>Wind Speed:</strong> ${windSpeedMph} mph</p>
         </div>
     `;
     
-    weatherSummary.textContent = `${temp}°C, ${description}`;
+    weatherSummary.textContent = `${tempC}°C / ${tempF}°F, ${description}`;
 }
 
 // Suggest tasks based on weather
@@ -306,6 +318,10 @@ function displayForecast(data) {
             return Math.abs(currentHour - 12) < Math.abs(closestHour - 12) ? current : closest;
         });
         
+        const tempC = Math.round(noonForecast.main.temp);
+        const tempF = celsiusToFahrenheit(noonForecast.main.temp);
+        const windSpeedMps = noonForecast.wind.speed;
+        const windSpeedMph = metersPerSecondToMph(windSpeedMps);
         const tasks = suggestTasksForForecast(noonForecast);
         
         return `
@@ -313,10 +329,10 @@ function displayForecast(data) {
                 <h3>${day.date.toLocaleDateString('en-US', { weekday: 'long' })}</h3>
                 <div class="forecast-date">${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
                 <div class="forecast-weather">
-                    <p><strong>Temperature:</strong> ${Math.round(noonForecast.main.temp)}°C</p>
+                    <p><strong>Temperature:</strong> ${tempC}°C / ${tempF}°F</p>
                     <p><strong>Conditions:</strong> ${noonForecast.weather[0].description}</p>
                     <p><strong>Humidity:</strong> ${noonForecast.main.humidity}%</p>
-                    <p><strong>Wind:</strong> ${noonForecast.wind.speed} m/s</p>
+                    <p><strong>Wind:</strong> ${windSpeedMph} mph</p>
                 </div>
                 <div class="forecast-tasks">
                     <h4>Suggested Tasks</h4>
