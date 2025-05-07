@@ -223,6 +223,22 @@ button:hover {
     }
 }
 
+@media (max-width: 400px) {
+    .forecast-scroll {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 12px;
+        width: 100%;
+        padding-bottom: 8px;
+    }
+    .forecast-card {
+        min-width: 220px;
+        flex: 0 0 auto;
+        width: 80vw; /* or another value to fit nicely */
+        box-sizing: border-box;
+    }
+}
+
 .location-prompt {
     width: 100%;
     box-sizing: border-box;
