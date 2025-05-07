@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Weather To-Do</title>
+    <title>Garden To-Do</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4CAF50">
@@ -11,11 +11,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Garden To-Do">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Garden To-Dos</h1>
+            <h1>Garden To-Do</h1>
             <div id="weather-summary" class="weather-summary">
                 Loading weather...
             </div>
@@ -35,19 +36,18 @@
                     <p>Loading suggested tasks...</p>
                 </div>
                 
-                <div class="custom-tasks">
-                    <h3>Add Custom Task</h3>
-                    <form id="task-form">
-                        <input type="text" id="task-input" placeholder="Enter a new task">
-                        <button type="submit">Add Task</button>
-                    </form>
-                </div>
-
                 <div class="task-list">
                     <h3>Your Tasks</h3>
                     <ul id="tasks">
                         <!-- Tasks will be added here -->
                     </ul>
+                </div>
+
+                <div class="custom-tasks">
+                    <form id="task-form">
+                        <input type="text" id="task-input" placeholder="Enter a new task">
+                        <button type="submit">Add Task</button>
+                    </form>
                 </div>
             </section>
 
@@ -68,8 +68,22 @@
                     <button type="submit">Save Location</button>
                 </form>
             </section>
+
+            <section class="email-section weather-card">
+              <h2>Email Updates</h2>
+              <body>Get daily updates on the weather and garden tasks.</body>
+              <form id="email-form">
+                <input type="email" id="email-input" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+              </form>
+              <button type="button" id="test-email-btn" style="margin-top:8px;">Send Test Email</button>
+              <div id="email-success" style="display:none;color:green;">Subscribed!</div>
+              <div id="email-error" style="display:none;color:red;">Error subscribing.</div>
+              <div id="test-email-feedback" style="display:none;margin-top:4px;"></div>
+            </section>
         </main>
     </div>
+    <div id="weather-tooltip" class="weather-tooltip" style="display:none;"></div>
     <script src="app.js"></script>
     <script src="service-worker.js"></script>
 </body>
