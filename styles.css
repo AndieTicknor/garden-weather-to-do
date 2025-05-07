@@ -188,8 +188,9 @@ button:hover {
 }
 
 .location-prompt {
-    text-align: center;
-    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
 }
 
 .location-prompt p {
@@ -200,11 +201,15 @@ button:hover {
 }
 
 .prompt-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 400px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.prompt-form input,
+.prompt-form button {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .prompt-form input {
